@@ -1,24 +1,17 @@
-package com.example.example.model.entities;
+package com.example.example.model.dto;
 
-import javax.persistence.*;
+import com.example.example.model.entities.PortEntity;
+
 import java.util.Objects;
 
-@Entity
-@Table(name = "ship")
-public class ShipEntity {
-    @Id
-    @Column
+public class ShipDto {
     private Long id;
-    @Column
-    private String name;
-    @Column
-    private String country;
-    @ManyToOne
-    @JoinColumn(name = "port_id", referencedColumnName = "id", nullable = false)
-    private PortEntity port;
 
-    public ShipEntity() {
-    }
+    private String name;
+
+    private String country;
+
+    private PortEntity port;
 
     public Long getId() {
         return id;
@@ -44,12 +37,20 @@ public class ShipEntity {
         this.country = country;
     }
 
+    public PortEntity getPort() {
+        return port;
+    }
+
+    public void setPort(PortEntity port) {
+        this.port = port;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ShipEntity that = (ShipEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(country, that.country) && Objects.equals(port, that.port);
+        ShipDto shipDto = (ShipDto) o;
+        return Objects.equals(id, shipDto.id) && Objects.equals(name, shipDto.name) && Objects.equals(country, shipDto.country) && Objects.equals(port, shipDto.port);
     }
 
     @Override

@@ -1,8 +1,8 @@
 package com.example.example.service.impl;
 
-import com.example.example.mapper.PortListMapper;
+import com.example.example.exeption.NotFoundVauleException;
 import com.example.example.mapper.PortMapper;
-import com.example.example.model.dto.PortDTO;
+import com.example.example.model.dto.PortDto;
 import com.example.example.repository.PortRepository;
 import com.example.example.service.PortService;
 import org.springframework.stereotype.Service;
@@ -14,46 +14,44 @@ public class PortServiceImpl implements PortService {
 
     private final PortRepository portRepository;
     private final PortMapper portMapper;
-    private final PortListMapper portListMapper;
 
-
-
-    public PortServiceImpl(PortRepository portRepository, PortMapper portMapper, PortListMapper portListMapper) {
+    public PortServiceImpl(PortRepository portRepository, PortMapper portMapper) {
         this.portRepository = portRepository;
         this.portMapper = portMapper;
-        this.portListMapper = portListMapper;
     }
 
     @Override
-    public PortDTO create(PortDTO port) {
+    public PortDto create(PortDto port) {
         portRepository.save(portMapper.toEntity(port));
         return port;
     }
 
     @Override
-    public List<PortDTO> findAll() {
-        return portListMapper.toDTOList(portRepository.findAll());
+    public List<PortDto> findAll() {
+        return portMapper.toDtoList(portRepository.findAll());
     }
 
     @Override
-    public PortDTO findById(long id) {
-        return portMapper.toDTO(portRepository.findById(id)
-                .orElseThrow(IllegalArgumentException::new));
+    public PortDto findById(long id) {
+        return portMapper.toDto(portRepository.findById(id)
+                .orElseThrow(()->  new NotFoundVauleException("Can not found port id = " + id)));
     }
 
     @Override
-    public PortDTO update(PortDTO port) {
+    public PortDto update(PortDto port) {
         portRepository.findById(port.getId())
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new NotFoundVauleException("Can not found port id = " + port.getId()));
         portRepository.save(portMapper.toEntity(port));
-        return port;
+        return portMapper.toDto(
+                portRepository.findById(port.getId())
+                .orElseThrow(() -> new NotFoundVauleException("Can not found port id = " + port.getId());
     }
 
     @Override
-    public PortDTO delete(long id) {
-        PortDTO portDTO = portMapper.toDTO(portRepository.findById(id)
-                .orElseThrow(IllegalArgumentException::new));
+    public PortDto delete(long id) {
+        PortDto portDto = portMapper.toDto(portRepository.findById(id)
+                .orElseThrow(() -> new NotFoundVauleException("Can not found port id = " + id)));
         portRepository.deleteById(id);
-        return portDTO;
+        return portDto;
     }
 }

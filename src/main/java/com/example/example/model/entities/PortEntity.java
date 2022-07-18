@@ -1,6 +1,5 @@
 package com.example.example.model.entities;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -8,7 +7,7 @@ import javax.persistence.Table;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ports")
+@Table(name = "port")
 public class PortEntity {
     @Id
     @Column
@@ -17,9 +16,6 @@ public class PortEntity {
     private String name;
     @Column
     private String country;
-
-//    @Column
-//    private Set<ShipEntity> ships = new HashSet<>();
 
     public PortEntity() {
     }
@@ -47,15 +43,6 @@ public class PortEntity {
     public void setCountry(String country) {
         this.country = country;
     }
-
-//    public Set<ShipEntity> getShips() {
-//        return ships;
-//    }
-//
-//    public void setShips(Set<ShipEntity> ships) {
-//        this.ships = ships;
-//    }
-
 
     @Override
     public boolean equals(Object o) {

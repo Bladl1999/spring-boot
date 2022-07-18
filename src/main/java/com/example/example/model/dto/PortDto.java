@@ -2,8 +2,7 @@ package com.example.example.model.dto;
 
 import java.util.Objects;
 
-
-public class PortDTO {
+public class PortDto {
 
     private long id;
 
@@ -11,10 +10,7 @@ public class PortDTO {
 
     private String country;
 
-//    private Set<ShipEntity> ships = new HashSet<>();
-
-
-    public PortDTO() {
+    public PortDto() {
     }
 
     public long getId() {
@@ -41,20 +37,12 @@ public class PortDTO {
         this.country = country;
     }
 
-//    public Set<ShipEntity> getShips() {
-//        return ships;
-//    }
-//
-//    public void setShips(Set<ShipEntity> ships) {
-//        this.ships = ships;
-//    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PortDTO portDTO = (PortDTO) o;
-        return id == portDTO.id && Objects.equals(name, portDTO.name) && Objects.equals(country, portDTO.country);
+        PortDto portDto = (PortDto) o;
+        return id == portDto.id && Objects.equals(name, portDto.name) && Objects.equals(country, portDto.country);
     }
 
     @Override

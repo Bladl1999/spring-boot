@@ -1,8 +1,8 @@
 package com.example.example.service.impl;
 
-import com.example.example.mapper.ShipListMapper;
+import com.example.example.exeption.NotFoundVauleException;
 import com.example.example.mapper.ShipMapper;
-import com.example.example.model.dto.ShipDTO;
+import com.example.example.model.dto.ShipDto;
 import com.example.example.repository.ShipRepository;
 import com.example.example.service.ShipService;
 import org.springframework.stereotype.Service;
@@ -13,44 +13,43 @@ import java.util.List;
 public class ShipServiceImpl implements ShipService {
     private final ShipRepository shipRepository;
     private final ShipMapper shipMapper;
-    private final ShipListMapper shipListMapper;
 
-
-    public ShipServiceImpl(ShipRepository shipRepository, ShipMapper shipMapper, ShipListMapper shipListMapper) {
+    public ShipServiceImpl(ShipRepository shipRepository, ShipMapper shipMapper) {
         this.shipRepository = shipRepository;
         this.shipMapper = shipMapper;
-        this.shipListMapper = shipListMapper;
     }
 
     @Override
-    public ShipDTO create(ShipDTO ship) {
+    public ShipDto create(ShipDto ship) {
         shipRepository.save(shipMapper.toEntity(ship));
         return ship;
     }
 
     @Override
-    public List<ShipDTO> findAll() {
-        return shipListMapper.toDTOList(shipRepository.findAll());
+    public List<ShipDto> findAll() {
+        return shipMapper.toDtoList(shipRepository.findAll());
     }
 
     @Override
-    public ShipDTO findById(long id)  {
-        return shipMapper.toDTO(shipRepository.findById(id)
-                .orElseThrow(IllegalArgumentException::new));
+    public ShipDto findById(long id) {
+        return shipMapper.toDto(shipRepository.findById(id)
+                .orElseThrow(()->new NotFoundVauleException("Can not found ship id = " + id));
     }
 
     @Override
-    public ShipDTO update(ShipDTO ship)  {
-            shipRepository.findById(ship.getId())
-                    .orElseThrow(IllegalArgumentException::new);
-            shipRepository.save(shipMapper.toEntity(ship));
-            return ship;
+    public ShipDto update(ShipDto ship) {
+        shipRepository.findById(ship.getId())
+                .orElseThrow(()->new NotFoundVauleException("Can not found ship id = " + ship.getId()));
+        shipRepository.save(shipMapper.toEntity(ship));
+        return shipMapper.toDto(
+                shipRepository.findById(ship.getId())
+                .orElseThrow(()->new NotFoundVauleException("Can not found ship id = " + ship.getId())));
     }
 
     @Override
-    public ShipDTO delete(long id)  {
-        ShipDTO shipDTO = shipMapper.toDTO(shipRepository.findById(id)
-                .orElseThrow(IllegalArgumentException::new));
+    public ShipDto delete(long id) {
+        ShipDto shipDTO = shipMapper.toDto(shipRepository.findById(id)
+                .orElseThrow(()->new NotFoundVauleException("Can not found ship id = " + id)));
         shipRepository.deleteById(id);
         return shipDTO;
     }

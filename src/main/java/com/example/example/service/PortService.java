@@ -1,13 +1,17 @@
 package com.example.example.service;
 
-import com.example.example.model.dto.PortDTO;
+import com.example.example.model.dto.PortDto;
 
 import java.util.List;
 
 public interface PortService {
-    PortDTO create(PortDTO port);
-    List<PortDTO> findAll();
-    PortDTO findById(long id);
-    PortDTO update(PortDTO port);
-    PortDTO delete(long id);
+    PortDto create(PortDto port);
+
+    List<PortDto> findAll();
+
+    PortDto findById(long id);
+
+    PortDto update(PortDto port);
+
+    PortDto delete(long id);
 }
