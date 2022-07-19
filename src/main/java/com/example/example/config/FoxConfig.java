@@ -1,5 +1,7 @@
 package com.example.example.config;
 
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;
@@ -10,11 +12,12 @@ import springfox.documentation.spring.web.plugins.Docket;
 @Configuration
 public class FoxConfig {
     @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.example.example"))
-                .paths(PathSelectors.any())
-                .build();
+    public OpenAPI api() {
+        return new OpenAPI()
+                .info(
+                        new Info()
+                                .title("spring boot server")
+                                .version("1.0.0")
+                );
     }
 }

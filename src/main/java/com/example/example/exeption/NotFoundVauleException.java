@@ -3,15 +3,37 @@ package com.example.example.exeption;
 
 public class NotFoundVauleException extends RuntimeException {
 
+    private String resourceName;
+    private String fieldName;
+    private Object fieldValue;
 
-    public NotFoundVauleException() {
+    public NotFoundVauleException(Class<?> resourceClass, String fieldName, Object fieldValue) {
+        this.resourceName = resourceClass.getSimpleName();
+        this.fieldName = fieldName;
+        this.fieldValue = fieldValue;
     }
 
-    public NotFoundVauleException(String message) {
-        super(message);
+    public String getResourceName() {
+        return resourceName;
     }
 
-    public NotFoundVauleException(String message, Throwable cause) {
-        super(message, cause);
+    public void setResourceName(String resourceName) {
+        this.resourceName = resourceName;
+    }
+
+    public String getFieldName() {
+        return fieldName;
+    }
+
+    public void setFieldName(String fieldName) {
+        this.fieldName = fieldName;
+    }
+
+    public Object getFieldValue() {
+        return fieldValue;
+    }
+
+    public void setFieldValue(Object fieldValue) {
+        this.fieldValue = fieldValue;
     }
 }

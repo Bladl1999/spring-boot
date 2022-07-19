@@ -33,23 +33,24 @@ public class ShipServiceImpl implements ShipService {
     @Override
     public ShipDto findById(long id) {
         return shipMapper.toDto(shipRepository.findById(id)
-                .orElseThrow(()->new NotFoundVauleException("Can not found ship id = " + id));
+                .orElseThrow(() -> new NotFoundVauleException(ShipDto.class, "id", id)));
     }
 
     @Override
     public ShipDto update(ShipDto ship) {
-        shipRepository.findById(ship.getId())
-                .orElseThrow(()->new NotFoundVauleException("Can not found ship id = " + ship.getId()));
+        Long id = ship.getId();
+        shipRepository.findById(id)
+                .orElseThrow(() -> new NotFoundVauleException(ShipDto.class, "id", id));
         shipRepository.save(shipMapper.toEntity(ship));
         return shipMapper.toDto(
-                shipRepository.findById(ship.getId())
-                .orElseThrow(()->new NotFoundVauleException("Can not found ship id = " + ship.getId())));
+                shipRepository.findById(id)
+                        .orElseThrow(() -> new NotFoundVauleException(ShipDto.class, "id", id)));
     }
 
     @Override
     public ShipDto delete(long id) {
         ShipDto shipDTO = shipMapper.toDto(shipRepository.findById(id)
-                .orElseThrow(()->new NotFoundVauleException("Can not found ship id = " + id)));
+                .orElseThrow(() -> new NotFoundVauleException(ShipDto.class, "id", id)));
         shipRepository.deleteById(id);
         return shipDTO;
     }

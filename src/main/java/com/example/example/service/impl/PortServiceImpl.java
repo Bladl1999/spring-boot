@@ -34,23 +34,24 @@ public class PortServiceImpl implements PortService {
     @Override
     public PortDto findById(long id) {
         return portMapper.toDto(portRepository.findById(id)
-                .orElseThrow(()->  new NotFoundVauleException("Can not found port id = " + id)));
+                .orElseThrow(()->  new NotFoundVauleException(PortDto.class, "id", id)));
     }
 
     @Override
     public PortDto update(PortDto port) {
-        portRepository.findById(port.getId())
-                .orElseThrow(() -> new NotFoundVauleException("Can not found port id = " + port.getId()));
+        Long id = port.getId();
+        portRepository.findById(id)
+                .orElseThrow(() -> new NotFoundVauleException(PortDto.class, "id", id));
         portRepository.save(portMapper.toEntity(port));
         return portMapper.toDto(
-                portRepository.findById(port.getId())
-                .orElseThrow(() -> new NotFoundVauleException("Can not found port id = " + port.getId());
+                portRepository.findById(id)
+                .orElseThrow(() -> new NotFoundVauleException(PortDto.class, "id", id)));
     }
 
     @Override
     public PortDto delete(long id) {
         PortDto portDto = portMapper.toDto(portRepository.findById(id)
-                .orElseThrow(() -> new NotFoundVauleException("Can not found port id = " + id)));
+                .orElseThrow(() -> new NotFoundVauleException(PortDto.class, "id", id)));
         portRepository.deleteById(id);
         return portDto;
     }
