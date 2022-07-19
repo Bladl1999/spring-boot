@@ -29,17 +29,17 @@ public class ShipController {
         return ResponseEntity.ok(shipService.findAll());
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ShipDto> findById(@PathVariable long id) {
         return ResponseEntity.ok(shipService.findById(id));
     }
 
-    @PutMapping(value = "/{id}")
+    @PutMapping("/{ship}")
     public ResponseEntity<ShipDto> update(@RequestBody ShipDto ship) {
         return ResponseEntity.ok(shipService.update(ship));
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<ShipDto> delete(@PathVariable long id) {
         return ResponseEntity.ok(shipService.delete(id));
     }

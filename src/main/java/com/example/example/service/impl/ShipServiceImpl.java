@@ -1,6 +1,6 @@
 package com.example.example.service.impl;
 
-import com.example.example.exeption.NotFoundVauleException;
+import com.example.example.exeption.NotFoundValueException;
 import com.example.example.mapper.ShipMapper;
 import com.example.example.model.dto.ShipDto;
 import com.example.example.repository.ShipRepository;
@@ -33,24 +33,21 @@ public class ShipServiceImpl implements ShipService {
     @Override
     public ShipDto findById(long id) {
         return shipMapper.toDto(shipRepository.findById(id)
-                .orElseThrow(() -> new NotFoundVauleException(ShipDto.class, "id", id)));
+                .orElseThrow(() -> new NotFoundValueException(ShipDto.class, "id", id)));
     }
 
     @Override
     public ShipDto update(ShipDto ship) {
         Long id = ship.getId();
         shipRepository.findById(id)
-                .orElseThrow(() -> new NotFoundVauleException(ShipDto.class, "id", id));
-        shipRepository.save(shipMapper.toEntity(ship));
-        return shipMapper.toDto(
-                shipRepository.findById(id)
-                        .orElseThrow(() -> new NotFoundVauleException(ShipDto.class, "id", id)));
+                .orElseThrow(() -> new NotFoundValueException(ShipDto.class, "id", id));
+        return shipMapper.toDto(shipRepository.save(shipMapper.toEntity(ship)));
     }
 
     @Override
     public ShipDto delete(long id) {
         ShipDto shipDTO = shipMapper.toDto(shipRepository.findById(id)
-                .orElseThrow(() -> new NotFoundVauleException(ShipDto.class, "id", id)));
+                .orElseThrow(() -> new NotFoundValueException(ShipDto.class, "id", id)));
         shipRepository.deleteById(id);
         return shipDTO;
     }

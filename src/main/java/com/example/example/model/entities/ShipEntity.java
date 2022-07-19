@@ -2,6 +2,7 @@ package com.example.example.model.entities;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "ship")
@@ -14,8 +15,14 @@ public class ShipEntity {
     @Column
     private String country;
     @ManyToOne
-    @JoinColumn(name = "port_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "port_id")
     private PortEntity port;
+
+    @ManyToMany()
+    @JoinTable(name = "task",
+            joinColumns = @JoinColumn(name = "ship_id"),
+            inverseJoinColumns = @JoinColumn(name = "staff_id"))
+    private Set<StaffEntity> staff;
 
     public ShipEntity() {
     }
@@ -42,6 +49,22 @@ public class ShipEntity {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public PortEntity getPort() {
+        return port;
+    }
+
+    public void setPort(PortEntity port) {
+        this.port = port;
+    }
+
+    public Set<StaffEntity> getStaff() {
+        return staff;
+    }
+
+    public void setStaff(Set<StaffEntity> staff) {
+        this.staff = staff;
     }
 
     @Override

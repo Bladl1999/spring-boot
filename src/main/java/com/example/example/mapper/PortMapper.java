@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = ShipMapper.class)
 public interface PortMapper {
     PortEntity toEntity(PortDto portDTO);
 

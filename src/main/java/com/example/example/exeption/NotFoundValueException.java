@@ -1,13 +1,13 @@
 package com.example.example.exeption;
 
 
-public class NotFoundVauleException extends RuntimeException {
+public class NotFoundValueException extends RuntimeException {
 
     private String resourceName;
     private String fieldName;
     private Object fieldValue;
 
-    public NotFoundVauleException(Class<?> resourceClass, String fieldName, Object fieldValue) {
+    public NotFoundValueException(Class<?> resourceClass, String fieldName, Object fieldValue) {
         this.resourceName = resourceClass.getSimpleName();
         this.fieldName = fieldName;
         this.fieldValue = fieldValue;

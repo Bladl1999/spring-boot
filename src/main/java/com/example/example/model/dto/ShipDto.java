@@ -1,8 +1,8 @@
 package com.example.example.model.dto;
 
-import com.example.example.model.entities.PortEntity;
-
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class ShipDto {
     private Long id;
@@ -11,7 +11,9 @@ public class ShipDto {
 
     private String country;
 
-    private PortEntity port;
+    private PortDto port;
+
+    private Set<StaffDto> staff;
 
     public Long getId() {
         return id;
@@ -37,12 +39,20 @@ public class ShipDto {
         this.country = country;
     }
 
-    public PortEntity getPort() {
+    public PortDto getPort() {
         return port;
     }
 
-    public void setPort(PortEntity port) {
+    public void setPort(PortDto port) {
         this.port = port;
+    }
+
+    public Set<StaffDto> getStaff() {
+        return staff;
+    }
+
+    public void setStaff(Set<StaffDto> staff) {
+        this.staff = staff;
     }
 
     @Override

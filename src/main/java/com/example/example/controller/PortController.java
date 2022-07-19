@@ -28,17 +28,17 @@ public class PortController {
         return ResponseEntity.ok(portService.findAll());
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<PortDto> findById(@PathVariable long id) {
         return ResponseEntity.ok(portService.findById(id));
     }
 
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<PortDto> update(@RequestBody PortDto ship) {
-        return ResponseEntity.ok(portService.update(ship));
+    @PutMapping("/{portDto}")
+    public ResponseEntity<PortDto> update(@RequestBody PortDto portDto) {
+        return ResponseEntity.ok(portService.update(portDto));
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<PortDto> delete(@PathVariable long id) {
         return ResponseEntity.ok(portService.delete(id));
     }
