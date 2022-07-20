@@ -1,8 +1,6 @@
 package com.example.example.model.dto;
 
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 public class ShipDto {
     private Long id;
@@ -12,8 +10,6 @@ public class ShipDto {
     private String country;
 
     private PortDto port;
-
-    private Set<StaffDto> staff;
 
     public Long getId() {
         return id;
@@ -47,13 +43,6 @@ public class ShipDto {
         this.port = port;
     }
 
-    public Set<StaffDto> getStaff() {
-        return staff;
-    }
-
-    public void setStaff(Set<StaffDto> staff) {
-        this.staff = staff;
-    }
 
     @Override
     public boolean equals(Object o) {
